@@ -1,0 +1,20 @@
+AI Repair Shop native desktop
+
+The application source is available under Apache-2.0 at
+https://github.com/pandaxiong0729/ai-repair-shop
+
+Qt 6.10.3, Qt for Python 6.10.3 and Shiboken 6.10.3 are dynamically
+loaded under LGPL-3.0. Their shared libraries can be replaced with compatible
+builds. The accompanying LGPL and GPL texts describe your rights, including
+modification and debugging of those libraries. Upstream corresponding sources:
+https://download.qt.io/archive/qt/6.10/6.10.3/submodules/
+https://code.qt.io/cgit/pyside/pyside-setup.git/tag/?h=v6.10.3
+Copyright The Qt Company Ltd. and other contributors.
+
+Python is licensed by the Python Software Foundation. PyInstaller distributes
+its bootloader under GPL with an exception allowing independent applications
+to retain their own license. Certifi supplies Mozilla's CA certificate bundle
+under MPL-2.0. License notices shipped by the Python wheels are included here.
+
+Codex artwork is fetched from OpenAI's asset service on the user's machine.
+The project license applies to the project's original code and documentation.

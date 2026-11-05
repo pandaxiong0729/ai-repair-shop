@@ -23,4 +23,6 @@
 *.user
 *.suo
 *.log
+__pycache__/
+/release-build/
 
