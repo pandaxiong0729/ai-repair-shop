@@ -1,0 +1,60 @@
+name: Stage tested native release assets
+on:
+  push:
+    branches: [ops/stage-native-v080]
+permissions:
+  actions: read
+  contents: write
+jobs:
+  stage:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      REPO: pandaxiong0729/ai-repair-shop
+    steps:
+      - name: Check successful build and retrieve release payloads
+        run: |
+          set -eu
+          test "$(gh run view 41990398683 -R "$REPO" --json conclusion,headSha --jq '.conclusion+":"+.headSha')" = 'success:f24d943a5780b65bfafdff1201d12743e59f591b'
+          gh run download 41990398683 -R "$REPO" -D tested
+          mkdir assets previous
+          gh release download v0.7.0 -R "$REPO" -D previous
+          (cd previous && sha256sum --check SHA256SUMS.txt)
+          cp previous/*.zip assets/
+      - name: Inspect archives and calculate SHA-256
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import zipfile,tarfile,shutil
+          labels={'macos-15':'macOS-arm64.zip','macos-15-intel':'macOS-x64.zip','windows-11-arm':'Windows-arm64.zip','ubuntu-22.04':'Linux-x64.tar.gz','ubuntu-24.04-arm':'Linux-arm64.tar.gz'}
+          for label,suffix in labels.items():
+              name='AI-Repair-Shop-'+suffix
+              archive=Path('tested','desktop-'+label,name)
+              if name.endswith('.zip'):
+                  with zipfile.ZipFile(archive) as z:
+                      assert z.testzip() is None
+                      names=z.namelist()
+              else:
+                  with tarfile.open(archive) as z: names=z.getnames()
+              assert any(n.endswith('AIRepairUI.otf') for n in names)
+              assert any(n.endswith(('AI-Repair-Shop.exe','/AI-Repair-Shop')) for n in names)
+              assert not any('codex-spritesheet-v4.webp' in n or 'QtWebEngineCore' in n or '/qa-state/' in n for n in names)
+              shutil.copyfile(archive,Path('assets')/name)
+          PY
+          (cd assets && sha256sum *.zip *.tar.gz > SHA256SUMS.txt && sha256sum -c SHA256SUMS.txt)
+      - name: Stage and verify draft release
+        run: |
+          test "$(gh release view v0.8.0 -R "$REPO" --json isDraft --jq .isDraft)" = true
+          gh release upload v0.8.0 -R "$REPO" assets/*
+          id=$(gh release view v0.8.0 -R "$REPO" --json databaseId --jq .databaseId)
+          gh api "repos/$REPO/releases/$id" > draft.json
+          python - <<'PY'
+          from pathlib import Path
+          import json,hashlib
+          draft=json.loads(Path('draft.json').read_text())
+          local={p.name:'sha256:'+hashlib.sha256(p.read_bytes()).hexdigest() for p in Path('assets').iterdir()}
+          assert draft['draft'] and len(local)==8
+          assert local=={a['name']:a['digest'] for a in draft['assets']}
+          print('All eight draft release assets verified.')
+          PY
