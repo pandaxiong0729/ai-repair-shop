@@ -138,8 +138,17 @@ class _Rpc:
         self.proc = subprocess.Popen(
             [str(executable), "app-server"], stdin=subprocess.PIPE, stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL, env=env, start_new_session=os.name == "posix",
-            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+            # Start suspended on Windows so no child can escape before job assignment.
+            creationflags=(subprocess.CREATE_NO_WINDOW | 0x00000004) if os.name == "nt" else 0,
         )
+        try:
+            self._job = _windows_job(self.proc) if os.name == "nt" else None
+        except BaseException:
+            self.proc.kill()
+            self.proc.wait()
+            self.proc.stdin.close()
+            self.proc.stdout.close()
+            raise
         self.stopped = stopped
         self.responses = queue.Queue()
         self.counter = 0
@@ -203,18 +212,93 @@ class _Rpc:
                     os.killpg(self.proc.pid, signal.SIGKILL)
                 except ProcessLookupError:
                     pass
-            elif self.proc.poll() is None:
-                self.proc.kill()
+            else:
+                # Closing our non-inheritable job kills only assigned descendants.
+                import _winapi
+                _winapi.CloseHandle(self._job)
             self._terminated = True
 
     def close(self):
         try:
+            # EOF is the stdio server's normal shutdown. Give it time to flush and
+            # exit, then dispose of any remaining helpers in its private group/job.
+            try:
+                self.proc.stdin.close()
+            except BrokenPipeError:
+                pass
+            self.reader.join(timeout=1)
+        finally:
             self.interrupt()
             self.proc.wait()
-        finally:
             self.reader.join(timeout=1)
             self.proc.stdout.close()
-            self.proc.stdin.close()
+
+
+def _windows_job(proc):
+    """Assign our suspended Popen child to a kill-on-close job before its first instruction."""
+    import ctypes as c
+    from ctypes import wintypes as w
+    import _winapi
+
+    dll = c.WinDLL("kernel32", use_last_error=True)
+
+    def api(name, result, *args):
+        fn = getattr(dll, name)
+        fn.argtypes, fn.restype = args, result
+        return fn
+
+    # JOBOBJECT_EXTENDED_LIMIT_INFORMATION, with native pointer-size alignment.
+    class BasicLimits(c.Structure):
+        _fields_ = [("process_time", c.c_int64), ("job_time", c.c_int64), ("flags", w.DWORD),
+                    ("min_ws", c.c_size_t), ("max_ws", c.c_size_t), ("process_limit", w.DWORD),
+                    ("affinity", c.c_size_t), ("priority", w.DWORD), ("scheduling", w.DWORD)]
+
+    class ExtendedLimits(c.Structure):
+        _fields_ = [("basic", BasicLimits), ("io_counters", c.c_uint64 * 6), ("memory", c.c_size_t * 4)]
+
+    class ThreadEntry(c.Structure):
+        _fields_ = [("size", w.DWORD), ("usage", w.DWORD), ("tid", w.DWORD), ("pid", w.DWORD),
+                    ("base_priority", w.LONG), ("delta", w.LONG), ("flags", w.DWORD)]
+
+    job = api("CreateJobObjectW", w.HANDLE, w.LPVOID, w.LPCWSTR)(None, None)
+    if not job:
+        raise c.WinError(c.get_last_error())
+    try:
+        limits = ExtendedLimits()
+        limits.basic.flags = 0x2000  # JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE
+        configure = api("SetInformationJobObject", w.BOOL, w.HANDLE, c.c_int, w.LPVOID, w.DWORD)
+        assign = api("AssignProcessToJobObject", w.BOOL, w.HANDLE, w.HANDLE)
+        if not configure(job, 9, c.byref(limits), c.sizeof(limits)) or not assign(job, int(proc._handle)):
+            raise c.WinError(c.get_last_error())
+        # Popen closes the initial thread handle. Reopen only a thread owned by
+        # this still-suspended child, which cannot yet have created another one.
+        snapshot = api("CreateToolhelp32Snapshot", w.HANDLE, w.DWORD, w.DWORD)(4, 0)
+        if snapshot == w.HANDLE(-1).value:
+            raise c.WinError(c.get_last_error())
+        try:
+            entry = ThreadEntry()
+            entry.size = c.sizeof(entry)
+            first = api("Thread32First", w.BOOL, w.HANDLE, c.POINTER(ThreadEntry))
+            following = api("Thread32Next", w.BOOL, w.HANDLE, c.POINTER(ThreadEntry))
+            present = first(snapshot, c.byref(entry))
+            while present and entry.pid != proc.pid:
+                present = following(snapshot, c.byref(entry))
+            if not present:
+                raise OSError("Cannot identify the private Codex client's initial thread")
+            thread = api("OpenThread", w.HANDLE, w.DWORD, w.BOOL, w.DWORD)(2, False, entry.tid)
+            if not thread:
+                raise c.WinError(c.get_last_error())
+            try:
+                if api("ResumeThread", w.DWORD, w.HANDLE)(thread) == 0xffffffff:
+                    raise c.WinError(c.get_last_error())
+            finally:
+                _winapi.CloseHandle(thread)
+        finally:
+            _winapi.CloseHandle(snapshot)
+        return job
+    except BaseException:
+        _winapi.CloseHandle(job)
+        raise
 
 
 class _CycleFile:
@@ -352,6 +436,7 @@ class Feedback:
             self._changed.notify()
         # A hung peer may have stopped draining stdin halfway through a long request.
         # Killing our private process also unblocks that write before joining the worker.
+        self._worker.join(timeout=1.25)
         rpc = self._rpc
         if rpc is not None:
             rpc.interrupt()

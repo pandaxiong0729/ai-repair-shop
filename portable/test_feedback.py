@@ -248,6 +248,26 @@ class Controller(unittest.TestCase):
 
 
 class Transport(unittest.TestCase):
+    def test_shutdown_releases_descendant_holding_the_stdout_pipe(self):
+        # The real Windows CLI can spawn helpers which inherit its stdout. Killing
+        # only the parent leaves the reader blocked even after the parent exits.
+        peer = """
+import json, subprocess, sys
+child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(30)'])
+request = json.loads(input())
+print(json.dumps({'id': request['id'], 'result': {}}), flush=True)
+assert json.loads(input())['method'] == 'initialized'
+sys.stdin.read()
+"""
+        real_popen = subprocess.Popen
+        with patch.object(subprocess, "Popen", side_effect=lambda args, **kw:
+                          real_popen([sys.executable, "-u", "-c", peer], **kw)):
+            rpc = fb._Rpc("mock-codex", threading.Event())
+            start = time.monotonic()
+            rpc.close()
+        self.assertLess(time.monotonic() - start, 5)
+        self.assertFalse(rpc.reader.is_alive())
+
     def test_private_stdio_handshake_error_and_cleanup(self):
         # Spawn a real local pipe peer, never a Codex binary. Verify context isolation too.
         peer = """
