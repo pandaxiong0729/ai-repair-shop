@@ -46,7 +46,14 @@ def atomic_write(path, data):
             temporary.unlink(missing_ok=True)
             raise
     try:
-        os.replace(temporary, path)
+        for attempt in range(4):
+            try:
+                os.replace(temporary, path)
+                break
+            except PermissionError:
+                if os.name != "nt" or attempt == 3:
+                    raise
+                time.sleep(.025)
     finally:
         temporary.unlink(missing_ok=True)
 
@@ -177,14 +184,23 @@ def main():
         atomic_write(stop, uuid.uuid4().hex.encode())
         return 0
     if opts.status:
+        from PySide6.QtCore import QLockFile
+        probe = QLockFile(str(root / "feedback.lock"))
+        probe.setStaleLockTime(0)
+        if probe.tryLock(0):
+            probe.unlock()
+            state = '{"running":false}'
+        else:
+            state = status.read_text(encoding="utf-8") if status.exists() else '{"running":true}'
         if sys.stdout:
-            print(status.read_text(encoding="utf-8") if status.exists() else '{"running":false}')
+            print(state)
         return 0
     from PySide6.QtCore import QLockFile, QTimer
     from PySide6.QtWidgets import QApplication, QMessageBox
     from feedback import Feedback
-    from window import PetWindow
+    from window import PetWindow, configure_font
     app = QApplication(sys.argv[:1])
+    configure_font(app)
     lock = QLockFile(str(root / ("feedback.lock" if opts.feedback else "toy.lock")))
     lock.setStaleLockTime(0)
     if not lock.tryLock(0):
@@ -192,6 +208,8 @@ def main():
     feedback = None
     initial_stop = stop.read_bytes() if stop.exists() else None
     try:
+        if opts.feedback:
+            atomic_write(status, json.dumps({"running": True, "pid": os.getpid(), "status": "正在启动"}).encode())
         path = atlas(root)
         if opts.feedback:
             feedback = Feedback(root / "feedback", find_codex())
@@ -228,6 +246,7 @@ def main():
     finally:
         if feedback:
             feedback.close()
+        if opts.feedback:
             atomic_write(status, b'{"running":false}')
         lock.unlock()
 

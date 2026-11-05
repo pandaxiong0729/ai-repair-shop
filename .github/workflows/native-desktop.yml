@@ -33,6 +33,14 @@ jobs:
       - name: Build and exercise on X11
         if: runner.os == 'Linux'
         run: xvfb-run -a python portable/build.py release-build
+      - name: Install isolated official CLI for protocol verification
+        run: npm install --ignore-scripts --no-audit --no-fund --prefix "${{ runner.temp }}/codex-bridge" @openai/codex@0.166.0
+      - name: Check installed desktop with the real Codex app-server
+        if: runner.os != 'Linux'
+        run: python portable/check_native_codex.py "${{ runner.temp }}/codex-bridge" release-build/dist
+      - name: Check installed desktop with the real Codex app-server on X11
+        if: runner.os == 'Linux'
+        run: xvfb-run -a python portable/check_native_codex.py "${{ runner.temp }}/codex-bridge" release-build/dist
       - uses: actions/upload-artifact@v4
         with:
           name: desktop-${{ matrix.runner }}

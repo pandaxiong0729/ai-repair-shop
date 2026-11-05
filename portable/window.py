@@ -5,7 +5,7 @@ from pathlib import Path
 from time import monotonic
 
 from PySide6.QtCore import QEvent, QPointF, Qt, QTimer
-from PySide6.QtGui import QActionGroup, QCursor, QEventPoint, QKeySequence, QShortcut
+from PySide6.QtGui import QActionGroup, QCursor, QEventPoint, QFontDatabase, QKeySequence, QShortcut
 from PySide6.QtWidgets import (
     QApplication, QFrame, QHBoxLayout, QLabel, QMenu, QPushButton, QVBoxLayout, QWidget,
 )
@@ -26,6 +26,22 @@ TOOLS = {
 }
 
 
+def configure_font(app):
+    """Use the system CJK font when available, otherwise the bundled UI subset."""
+    if app.property("repairShopFontReady"):
+        return
+    directory = Path(__file__).resolve().parent / "fonts"
+    font_id = QFontDatabase.addApplicationFont(str(directory / "AIRepairUI.otf"))
+    installed = set(QFontDatabase.families())
+    preferred = ["PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans CJK SC", "WenQuanYi Zen Hei"]
+    system_cjk = [name for name in preferred if name in installed]
+    font = app.font()
+    bundled = QFontDatabase.applicationFontFamilies(font_id) if font_id >= 0 else []
+    font.setFamilies(list(dict.fromkeys(system_cjk + bundled + font.families())))
+    app.setFont(font)
+    app.setProperty("repairShopFontReady", True)
+
+
 def _load_quotes():
     here = Path(__file__).resolve().parent
     for directory in (here, here / "runtime-assets/codex", here.parent / "runtime-assets/codex"):
@@ -42,6 +58,7 @@ def _load_quotes():
 
 class PetWindow(QWidget):
     def __init__(self, atlas_path: str, feedback=None):
+        configure_font(QApplication.instance())
         flags = Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint | Qt.WindowType.WindowStaysOnTopHint
         super().__init__(None, flags)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)

@@ -41,6 +41,7 @@ def build(output):
         "--name", name, "--distpath", distdir, "--workpath", output / "build",
         "--specpath", output, "--osx-bundle-identifier", "io.github.pandaxiong0729.airepairshop",
         "--add-data", str(notices) + os.pathsep + "licenses",
+        "--add-data", str(here / "fonts") + os.pathsep + "fonts",
         "--add-data", str(repo / "runtime-assets/codex/quotes.json") + os.pathsep + "runtime-assets/codex",
         here / "app.py")
     arch = platform.machine().lower()

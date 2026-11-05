@@ -475,7 +475,7 @@ class PetScene(QWidget):
         p.restore()
 
     def _draw_speech(self, p, now):
-        font = QFont()
+        font = self.font()
         font.setPixelSize(12)
         font.setWeight(QFont.Weight.DemiBold)
         p.setFont(font)
@@ -520,8 +520,7 @@ class PetScene(QWidget):
                 p.save()
                 p.translate(target)
                 p.rotate(-11)
-                font = QFont()
-                font.setFamilies(["PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "WenQuanYi Zen Hei"])
+                font = self.font()
                 font.setPixelSize(44)
                 font.setWeight(QFont.Weight.Black)
                 p.setFont(font)

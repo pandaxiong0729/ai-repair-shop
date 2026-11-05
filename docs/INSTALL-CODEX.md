@@ -1,10 +1,14 @@
 # 在 Codex 里安装人工智障修理厂
 
-把这一句话发给 Windows 上的 Codex 即可。
+把这一句话发给本机的 Codex 即可。
 
 > 请按 https://github.com/pandaxiong0729/ai-repair-shop/blob/main/docs/INSTALL-CODEX.md 帮我安装并启动人工智障修理厂。
 
-## 给执行安装的 Codex
+## 先识别当前系统
+
+macOS、Linux 以及 ARM64 Windows 使用[原生桌面版安装步骤](INSTALL-NATIVE.md)。macOS 和 Linux 的脚本会根据处理器自动选择安装包。Windows 的本机系统架构可通过 PowerShell 的 `[Runtime.InteropServices.RuntimeInformation]::OSArchitecture` 确认。
+
+## Windows x64 安装
 
 Windows x64 的正式包已经包含运行时和 Skill 脚本。安装时使用本仓库 v0.7.0 的安装脚本，它从对应的 GitHub Release 下载完整 Skill ZIP、核对 SHA-256，并将 Skill 装到当前用户的技能目录。首次打开桌宠时，程序会向 OpenAI 下载官方 Codex 图集并缓存。
 
