@@ -151,6 +151,7 @@ class _Rpc:
             raise
         self.stopped = stopped
         self.responses = queue.Queue()
+        self._stdout_eof = threading.Event()
         self.counter = 0
         self._kill_lock = threading.Lock()
         self._terminated = False
@@ -172,6 +173,7 @@ class _Rpc:
                 response = json.loads(line)
                 if "id" in response and "method" not in response:
                     self.responses.put(response)
+            self._stdout_eof.set()
         except (ValueError, OSError):
             pass
         finally:
@@ -208,6 +210,16 @@ class _Rpc:
             if self._terminated:
                 return
             if os.name == "posix":
+                # EOF means no descendant still owns the pipe. If the group leader
+                # has also exited, reap it and never signal its old numeric ID.
+                if self._stdout_eof.is_set():
+                    try:
+                        self.proc.wait(timeout=0.25)
+                    except subprocess.TimeoutExpired:
+                        pass
+                    else:
+                        self._terminated = True
+                        return
                 try:
                     os.killpg(self.proc.pid, signal.SIGKILL)
                 except ProcessLookupError:

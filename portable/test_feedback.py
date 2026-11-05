@@ -299,7 +299,13 @@ input()
                 with self.assertRaises(fb.RpcRejected):
                     rpc.call("thread/list", {})
             finally:
-                rpc.close()
+                if os.name == "posix":
+                    # macOS can report EPERM for killpg on an exited group. A
+                    # normal shutdown must skip the signal entirely after EOF.
+                    with patch.object(os, "killpg", side_effect=AssertionError("unexpected signal")):
+                        rpc.close()
+                else:
+                    rpc.close()
         self.assertIsNotNone(rpc.proc.poll())
         self.assertFalse(rpc.reader.is_alive())
 
