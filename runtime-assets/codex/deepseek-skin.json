@@ -1,0 +1,14 @@
+{
+  "name": "DeepSeek expressive whale (unofficial animation)",
+  "image": "deepseek-spritesheet.png",
+  "frameWidth": 443,
+  "frameHeight": 443,
+  "frameInset": 4,
+  "columns": 4,
+  "rows": 2,
+  "idleRow": 0,
+  "idleFrames": 4,
+  "reactionRow": 1,
+  "reactionFrames": 4,
+  "fps": 4
+}

@@ -1,0 +1,52 @@
+QiaoQiaoAI / 人工智障修理厂
+Copyright 2026 QiaoQiaoAI contributors.
+
+Original source code and documentation are licensed under Apache License 2.0.
+See LICENSE for the full text.
+
+VPet is an independent project by LorisYounger and its contributors:
+https://github.com/LorisYounger/VPet
+The plugin integrates with VPet's public plugin and UI APIs. Host assemblies
+are not included in the plugin installation ZIP.
+
+Codex character artwork originates from OpenAI's official asset service:
+https://persistent.oaistatic.com/codex/pets/v1/codex-spritesheet-v4.webp
+Character artwork and trademarks are not licensed by this project's LICENSE.
+Redistribution permission for that external artwork has not been established.
+Local review packages that include it are not cleared public releases.
+See docs/ASSETS.md for provenance and release conditions.
+
+Doubao avatar artwork is the original image embedded by the official site:
+https://www.doubao.com/chat/
+https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/doubao/web/doubao_avatar.png
+The image and its trademarks are not covered by this project's LICENSE.
+Public redistribution permission has not been established for this artwork.
+
+Doubao expressive animation (v0.3.0):
+doubao-spritesheet.png was generated with the built-in image_gen tool using
+the official Doubao avatar above as its reference. It is not official Doubao
+animation. The unmodified generated PNG is 1774 x 887 pixels, RGBA, arranged
+as 4 columns by 2 rows. SHA-256:
+1de22dba70e27bfce68970e6b6009aab687b12dfe72a4357a200f6c1140c8e23
+The prompt is documented in docs/DOUBAO-ANIMATION-PROMPT.txt.
+Public redistribution clearance for this derivative and its reference remains
+pending. Neither the official reference images nor this generated animation
+is included in the public source ZIP or licensed by the project's LICENSE.
+Expressions and dialogue are local effects, not model feelings or feedback.
+
+This independent project is not affiliated with or endorsed by OpenAI, Doubao
+or VPet.
+
+DeepSeek whale animation (v0.5.0): the reference is the official site icon
+https://www.deepseek.com/favicon.ico, converted to PNG without visual changes.
+The expressive atlas is project-generated using the built-in image_gen tool;
+it is not official DeepSeek animation. See docs/DEEPSEEK-ANIMATION-PROMPT.txt.
+Its SHA-256 is 173948186ed2543628a442de66938c2facb21a5e577b80acfcbcef9c6f12eb27.
+Artwork and trademark redistribution clearance remains unresolved. The reference
+and generated atlas are excluded from the public source ZIP. This independent
+project is not affiliated with or endorsed by DeepSeek.
+
+The self-contained Windows preview also includes Microsoft .NET runtime
+components under their own licenses. See licenses/ in the preview package.
+Runtime components and their licenses are not part of the source ZIP or the
+VPet plugin installation ZIP.

@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-25T17:43:38.2584838+00:00",
+  "powershell51": [
+    {
+      "name": "pending produces no corrective prompt or claim",
+      "passed": true
+    },
+    {
+      "name": "one batch emits one compact prompt and repeated reads do not replay",
+      "passed": true
+    },
+    {
+      "name": "new whip tool is accepted",
+      "passed": true
+    },
+    {
+      "name": "empty round returns no prompt",
+      "passed": true
+    },
+    {
+      "name": "explicit cancellation ends waiting without a prompt",
+      "passed": true
+    },
+    {
+      "name": "reason-only round is accepted without inventing interactions",
+      "passed": true
+    },
+    {
+      "name": "wrong session binding is rejected before claiming",
+      "passed": true
+    },
+    {
+      "name": "unknown tools and invalid totals are rejected",
+      "passed": true
+    },
+    {
+      "name": "concurrent consumers emit exactly one local result",
+      "passed": true
+    }
+  ],
+  "powershell7": [
+    {
+      "name": "pending produces no corrective prompt or claim",
+      "passed": true
+    },
+    {
+      "name": "one batch emits one compact prompt and repeated reads do not replay",
+      "passed": true
+    },
+    {
+      "name": "new whip tool is accepted",
+      "passed": true
+    },
+    {
+      "name": "empty round returns no prompt",
+      "passed": true
+    },
+    {
+      "name": "explicit cancellation ends waiting without a prompt",
+      "passed": true
+    },
+    {
+      "name": "reason-only round is accepted without inventing interactions",
+      "passed": true
+    },
+    {
+      "name": "wrong session binding is rejected before claiming",
+      "passed": true
+    },
+    {
+      "name": "unknown tools and invalid totals are rejected",
+      "passed": true
+    },
+    {
+      "name": "concurrent consumers emit exactly one local result",
+      "passed": true
+    }
+  ],
+  "limits": [
+    "Local file collection and single tool result only; no live model delivery or automatic wakeup was tested."
+  ],
+  "independent": [
+    {
+      "name": "still playing: repeated pending plus bounded wait produces no prompt or claim",
+      "passed": true,
+      "detail": "4 pending results; no prompt, no claim, no desktop launched."
+    },
+    {
+      "name": "cancelled round remains cancelled on repeated reads",
+      "passed": true,
+      "detail": "3 cancelled results; no prompt or claim."
+    },
+    {
+      "name": "eight parallel readers claim one aggregate; sequential retries emit no prompt",
+      "passed": true,
+      "detail": "1 feedback + 7 duplicate suppressions concurrently; 5 later suppressions without prompt."
+    },
+    {
+      "name": "interrupted claim write is never replayed automatically",
+      "passed": true,
+      "detail": "Existing zero-byte claim intentionally suppresses retries; delivery can be lost as documented."
+    }
+  ],
+  "actualCollectorToReader": {
+    "passed": true,
+    "total": 156,
+    "tools": 9,
+    "second": "already_claimed",
+    "deliveredToModel": false,
+    "first": "feedback",
+    "characters": 3,
+    "scope": "Actual WPF interaction events -> C# collector -> one PowerShell result; test data only."
+  }
+}

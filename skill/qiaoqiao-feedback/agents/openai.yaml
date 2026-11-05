@@ -1,0 +1,4 @@
+interface:
+  display_name: "人工智障修理厂 · 按需桌宠"
+  short_description: "需要时叫出桌宠，不用时收起，不开机自启，每次重置之间最多反馈一条"
+  default_prompt: "使用 $qiaoqiao-feedback 启动人工智障修理厂，跟随我最近发过消息的 Codex 聊天，每次重置之间最多自动反馈一条，不添加登录启动。"

@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "clientDate": "2026-11-01",
+  "checks": [
+    {
+      "name": "owned legacy shortcut removed; manifest disabled; feedback and executable preserved",
+      "passed": true
+    },
+    {
+      "name": "repeated disable is idempotent and does not rewrite metadata",
+      "passed": true
+    },
+    {
+      "name": "same-name unrelated shortcut is preserved byte-for-byte",
+      "passed": true
+    },
+    {
+      "name": "owned shortcut and manifest belonging to another DataRoot are preserved",
+      "passed": true
+    },
+    {
+      "name": "fresh empty data root creates neither shortcut nor installation metadata",
+      "passed": true
+    },
+    {
+      "name": "StatusOnly leaves legacy startup metadata and feedback unchanged",
+      "passed": true
+    },
+    {
+      "name": "MSIX alias with matching logical root arguments and binary hash is recognized",
+      "passed": true
+    },
+    {
+      "name": "MSIX alias with different resident arguments is rejected",
+      "passed": true
+    },
+    {
+      "name": "MSIX alias with different executable bytes is rejected",
+      "passed": true
+    },
+    {
+      "name": "MSIX alias for another DataRoot is rejected",
+      "passed": true
+    }
+  ],
+  "defaultFullInstallNoStartup": true,
+  "noLaunchHonored": true,
+  "realStartupUnchangedDuringInstall": true,
+  "ownedLegacyAliasRemoved": true,
+  "petLaunched": false
+}

@@ -1,0 +1,26 @@
+# Restricted external artwork stays local until redistribution is cleared.
+/runtime-assets/*
+!/runtime-assets/codex/
+/runtime-assets/codex/*
+!/runtime-assets/codex/skin.json
+!/runtime-assets/codex/doubao-skin.json
+!/runtime-assets/codex/deepseek-skin.json
+!/runtime-assets/codex/quotes.json
+/skill/qiaoqiao-feedback/assets/desktop/
+
+# Build output, packages and recordings may contain the official artwork.
+/artifacts/
+/docs/media/
+**/bin/
+**/obj/
+*.zip
+*.mp4
+*.avi
+
+# Local development state.
+.vs/
+.idea/
+*.user
+*.suo
+*.log
+

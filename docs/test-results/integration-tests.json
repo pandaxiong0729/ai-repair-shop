@@ -1,0 +1,289 @@
+{
+  "success": true,
+  "hostCommit": "5a64ad2bf00a3f321227a26aa585bac6399b1a0e",
+  "target": "VPet 1.10.74 source-built Core/Interface \u002B QiaoQiaoAI plugin",
+  "testedAt": "2026-10-31T04:06:15.1525065+00:00",
+  "cases": [
+    {
+      "Name": "resident_latest_human_message_ignores_assistant_and_own_feedback",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 67
+    },
+    {
+      "Name": "resident_first_hit_freezes_chat_and_long_hold_stays_one_round",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 103
+    },
+    {
+      "Name": "resident_every_tool_and_later_bursts_stay_blocked_until_explicit_reset",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 64
+    },
+    {
+      "Name": "resident_reset_before_quiet_discards_unsent_hits_without_submitting",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 63
+    },
+    {
+      "Name": "resident_cycle_consumption_survives_restart_and_only_reset_rearms",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 145
+    },
+    {
+      "Name": "resident_upgrade_and_corrupt_cycle_state_fail_closed_until_reset",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 102
+    },
+    {
+      "Name": "resident_unbound_hits_are_never_redirected_to_later_chat",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 105
+    },
+    {
+      "Name": "resident_idle_clock_is_monotonic_and_invalid_counts_do_not_send",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 66
+    },
+    {
+      "Name": "resident_delivery_journal_claims_once_and_never_replays_unknown",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 104
+    },
+    {
+      "Name": "resident_delivery_sent_requires_ack_and_survives_restart",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 95
+    },
+    {
+      "Name": "menu_lifecycle_is_idempotent",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 70
+    },
+    {
+      "Name": "twenty_sessions_restore_layers_masks_and_stop_ui_timer",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 3331
+    },
+    {
+      "Name": "binding_and_live_binding_source_are_preserved",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 273
+    },
+    {
+      "Name": "style_and_unset_local_value_are_preserved",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 197
+    },
+    {
+      "Name": "dynamic_resource_updates_survive",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 271
+    },
+    {
+      "Name": "base_value_changed_during_mode_is_not_overwritten",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 196
+    },
+    {
+      "Name": "third_party_replacement_animation_survives_stop",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 693
+    },
+    {
+      "Name": "missing_and_corrupt_assets_fail_without_host_changes",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 408
+    },
+    {
+      "Name": "mouse_routes_do_not_reach_pet_handlers",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 149
+    },
+    {
+      "Name": "host_overlay_preview_input_is_guarded_only_while_active",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 197
+    },
+    {
+      "Name": "tool_buttons_switch_without_counting_hits",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 172
+    },
+    {
+      "Name": "expandable_menu_selects_all_nine_tools_without_obsolete_reply_card_input",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 187
+    },
+    {
+      "Name": "all_nine_tools_create_bounded_host_effects_and_character_reactions",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 179
+    },
+    {
+      "Name": "nine_tool_hold_repetition_combos_and_red_marks_stay_bounded",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 155
+    },
+    {
+      "Name": "moving_whip_hits_three_characters_with_rate_limit_and_cancels",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 241
+    },
+    {
+      "Name": "single_whip_handle_is_hit_testable_outside_the_pet_without_duplicate_rope_geometry",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 266
+    },
+    {
+      "Name": "manual_whip_drag_cancels_across_host_ui_and_plugin_lifecycle",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 893
+    },
+    {
+      "Name": "deepseek_idle_and_reaction_frames_animate_and_recover",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 139
+    },
+    {
+      "Name": "pinch_limits_displacement_and_completes_one_spring_return",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 127
+    },
+    {
+      "Name": "pinch_cancels_on_menu_tool_character_clear_disable_and_explicit_cancel",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 181
+    },
+    {
+      "Name": "lost_capture_deactivation_and_escape_cancel_pinch_and_close_menu",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 254
+    },
+    {
+      "Name": "plugin_stop_unload_and_endgame_remove_menu_and_pinch_state",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 894
+    },
+    {
+      "Name": "three_offline_faces_switch_and_plugin_remembers_selection",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 273
+    },
+    {
+      "Name": "doubao_idle_blink_and_both_hit_reactions_advance_in_real_host",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 140
+    },
+    {
+      "Name": "doubao_continuous_spray_keeps_expressions_playing_and_release_recovers",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 155
+    },
+    {
+      "Name": "repeated_doubao_hits_do_not_break_clear_cancel_or_plugin_exit",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 213
+    },
+    {
+      "Name": "short_press_threshold_and_long_spray_use_the_shared_state_machine",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 137
+    },
+    {
+      "Name": "lost_capture_and_window_deactivation_cancel_spray",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 153
+    },
+    {
+      "Name": "toolbar_actions_face_change_clear_and_explicit_cancel_stop_spray",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 151
+    },
+    {
+      "Name": "plugin_stop_unload_and_exit_cancel_active_spray",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 486
+    },
+    {
+      "Name": "escape_stops_mode",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 197
+    },
+    {
+      "Name": "external_layer_removal_rolls_back_session",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 225
+    },
+    {
+      "Name": "ended_plugin_is_collectible_with_host_still_alive",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 486
+    },
+    {
+      "Name": "end_game_is_idempotent_and_removes_menu",
+      "Passed": true,
+      "Detail": "Passed",
+      "Milliseconds": 271
+    },
+    {
+      "Name": "no_save_numeric_or_unauthorized_host_interface_access",
+      "Passed": true,
+      "Detail": "Only IMainWindow.Main and Dispatcher were accessed.",
+      "Milliseconds": 0
+    }
+  ],
+  "observations": [
+    "Replacement before stop: color=#FFFF0000 / opacity 1, same Red instance=False, animated=True",
+    "Replacement after stop: color=#FFFF0000 / opacity 1, same Red instance=False, animated=True",
+    "The replacement advanced to blue after plugin stop while its underlying base value remained black."
+  ],
+  "limitations": [
+    "Real Core.Main and ToolBar are used; IMainWindow/controller are strict lightweight proxies, without a game save or graph.",
+    "Input routing tests synthesize WPF routed events. They do not replace hardware input/DPI testing in the Steam executable.",
+    "Press/charge/release checks use the same BeginPress/EndPress/CancelPress and timer state machine as physical pointer handlers; WPF LostMouseCapture and Window.Deactivated events are raised without moving the mouse or acquiring OS capture. Native pointer capture/release still requires manual acceptance.",
+    "This harness does not test Steam Workshop distribution, code-MOD trust dialogs or host auto-movement during normal gameplay."
+  ]
+}

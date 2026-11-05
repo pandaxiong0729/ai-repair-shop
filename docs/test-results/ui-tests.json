@@ -1,0 +1,158 @@
+{
+  "passed": true,
+  "failures": 0,
+  "results": [
+    {
+      "name": "resident routing uses per-message timestamps and first-hit cutoff",
+      "passed": true
+    },
+    {
+      "name": "resident pauses and tool changes never resend before reset; reset arms one new feedback",
+      "passed": true
+    },
+    {
+      "name": "resident never attaches an unbound hit to a chat discovered later",
+      "passed": true
+    },
+    {
+      "name": "resident reset cancels unsent hits and stale in-flight acknowledgement cannot overwrite new cycle",
+      "passed": true
+    },
+    {
+      "name": "resident restart keeps a consumed cycle blocked until reset",
+      "passed": true
+    },
+    {
+      "name": "resident window has no manual send form and closing releases its controller",
+      "passed": true
+    },
+    {
+      "name": "official spritesheet loaded",
+      "passed": true
+    },
+    {
+      "name": "three bundled character animation sets load and switch offline",
+      "passed": true
+    },
+    {
+      "name": "rapid alternating hits remain bounded",
+      "passed": true
+    },
+    {
+      "name": "effects expire and apology appears",
+      "passed": true
+    },
+    {
+      "name": "twenty reset cycles do not multiply hits",
+      "passed": true
+    },
+    {
+      "name": "reset button clears interactions without exiting or changing selections",
+      "passed": true
+    },
+    {
+      "name": "short poop press emits exactly one ordinary hit on release",
+      "passed": true
+    },
+    {
+      "name": "charging remains quiet before threshold",
+      "passed": true
+    },
+    {
+      "name": "held poop becomes bounded continuous super spray and release has no backlog",
+      "passed": true
+    },
+    {
+      "name": "tool clear character reset cancel and exit stop spray",
+      "passed": true
+    },
+    {
+      "name": "doubao idle animation opens blinks and returns to open eyes",
+      "passed": true
+    },
+    {
+      "name": "doubao hammer and poop reactions advance through four expressive frames and recover",
+      "passed": true
+    },
+    {
+      "name": "doubao sustained spray keeps facial animation cycling and release restores idle",
+      "passed": true
+    },
+    {
+      "name": "repeated doubao hits and restarted holds preserve cancellation",
+      "passed": true
+    },
+    {
+      "name": "expanded tool list exposes and selects all nine real buttons",
+      "passed": true
+    },
+    {
+      "name": "fixed paper and stamp visuals have no obsolete reply editor; legacy text remains bounded",
+      "passed": true
+    },
+    {
+      "name": "every tool renders reacts and expires on all three characters",
+      "passed": true
+    },
+    {
+      "name": "all tool effects stay bounded under repeated interactions",
+      "passed": true
+    },
+    {
+      "name": "pinch is bounded springs back and cancels on every ui transition",
+      "passed": true
+    },
+    {
+      "name": "actual pinch deformation stays monotone during eight-direction drags and reverse spring motion",
+      "passed": true
+    },
+    {
+      "name": "viewbox scaled dip input and every new drawing path remain valid",
+      "passed": true
+    },
+    {
+      "name": "100 150 200 percent rendering",
+      "passed": true
+    },
+    {
+      "name": "all nine tools repeat while held and stop without queued hits",
+      "passed": true
+    },
+    {
+      "name": "whip movement produces reactions on all three characters and cancels",
+      "passed": true
+    },
+    {
+      "name": "one rendered whip can be grabbed outside every character and remains stable through fast sweeps",
+      "passed": true
+    },
+    {
+      "name": "cartoon red marks accumulate within limits fade and clear on each character",
+      "passed": true
+    },
+    {
+      "name": "floating layers stay transparent and hover menu hit testing works",
+      "passed": true
+    },
+    {
+      "name": "desktop window is transparent topmost movable and clearly closable without toy feedback",
+      "passed": true
+    },
+    {
+      "name": "feedback window seals one local round on send and an empty round on close",
+      "passed": true
+    },
+    {
+      "name": "explicit feedback discard closes and releases resources even if its end marker cannot be written",
+      "passed": true
+    },
+    {
+      "name": "disposal is repeatable and stops timers",
+      "passed": true
+    }
+  ],
+  "observations": [
+    "Actual WeightAndGradient reflection: 259456 sampled Jacobian determinants; minimum=0.12063579896835797; all three characters, both cheeks, eight directions, held and positive/negative spring phases."
+  ],
+  "inputBoundary": "BeginPress/EndPress/CancelPress and AdvanceForTesting use the same state machine as WPF pointer handlers and the animation timer. No desktop input was generated; native mouse capture and hardware DPI require manual acceptance."
+}

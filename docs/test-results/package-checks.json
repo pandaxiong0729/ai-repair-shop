@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "checkedAt": "2026-10-29T06:19:25.935779+00:00",
+  "checks": [
+    {
+      "name": "plugin_layout_and_all_hashes",
+      "passed": true
+    },
+    {
+      "name": "code_only_has_no_artwork_or_host_dlls",
+      "passed": true
+    },
+    {
+      "name": "source_has_no_artwork_runtime_or_build_caches",
+      "passed": true
+    },
+    {
+      "name": "toy_contains_runtime_three_characters_licenses_and_valid_hashes",
+      "passed": true
+    },
+    {
+      "name": "complete_skill_contains_default_executable_scripts_assets_and_valid_hashes",
+      "passed": true
+    },
+    {
+      "name": "skill_source_contains_only_text_and_valid_hashes",
+      "passed": true
+    },
+    {
+      "name": "clean_toy_extraction_launches_nine_tools_three_characters_transparency_and_feedback_checks",
+      "passed": true
+    },
+    {
+      "name": "clean_skill_extraction_runs_default_runtime_and_all_nine_bridge_checks",
+      "passed": true
+    },
+    {
+      "name": "demo_video_decodes_completely",
+      "passed": true
+    },
+    {
+      "name": "single_whip_demo_video_decodes_completely",
+      "passed": true
+    }
+  ],
+  "previewExecutableSha256": "6980957d90a9ffb619f08ae6236c3f459335b1b149d38ed67ba6661ebf8cccb0",
+  "limits": [
+    "Clean extraction test covers the standalone preview, not installation into a full VPet or Steam executable."
+  ]
+}
