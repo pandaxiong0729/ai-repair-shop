@@ -2,6 +2,14 @@
 
 被 AI 气到的时候，我想敲它两下，再让它把刚才的回答好好改改。这是一个可以挂在 Windows、Mac 和 Linux 桌面上的互动桌宠。
 
+[按机型下载](#下载桌宠) · [安装 Codex Skill](docs/INSTALL-CODEX.md)
+
+![桌宠玩法动图：长按橡皮锤连续敲打，拖着鞭柄来回甩，再盖上一个红色的「滚」字。](docs/images/gameplay.gif)
+
+*动图用原创发条玩偶演示实际操作。公开下载版使用 Codex 角色。*
+
+## 下载桌宠
+
 1. **只想玩**，从下表下载适合自己电脑的包，完整解压后打开里面的桌宠程序。
 2. **想连接 Codex**，把这句话发给 Codex：**请按 https://github.com/pandaxiong0729/ai-repair-shop/blob/main/docs/INSTALL-CODEX.md 帮我安装并启动人工智障修理厂。**
 3. 下次说“启动人工智障修理厂”就能叫出来，说“关闭人工智障修理厂”就会收起。
@@ -16,6 +24,10 @@
 | Linux，ARM64 处理器 | [Linux ARM64](https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-Linux-arm64.tar.gz) | `AI-Repair-Shop/AI-Repair-Shop` |
 
 公开版首次使用时从 OpenAI 获取约 0.9 MB 的官方 Codex 图集并缓存，此后玩具可以离线使用。桌宠有九种玩法，支持长按连击和拖动甩鞭。豆包和 DeepSeek 动画目前用于本地评审。
+
+在 Windows x64 版点「工具箱」就能看到这九种玩法，把鼠标放在图标上可以查看操作说明。
+
+<img src="docs/images/windows-toolbox.png" width="384" alt="Windows x64 正式版的九宫格工具箱。第一行是橡皮锤、便便和纸团，第二行是滚字章、捏脸和拳套，第三行是压扁、鸡蛋和软鞭。">
 
 Skill 版会把“这次回答做得不好，请纠正”发到你敲第一下时最近发过真人消息的 Codex 聊天。松手约两秒后排入队列，每次重置之间最多一条。使用反馈功能需要本机已安装并登录支持聊天队列接口的 Codex。
 
