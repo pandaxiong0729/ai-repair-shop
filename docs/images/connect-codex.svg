@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="154" height="40" viewBox="0 0 154 40">
+  <title>连接 Codex</title>
+  <rect x=".5" y=".5" width="153" height="39" rx="9" fill="#f0eaf7" stroke="#b9a6cf"/>
+  <g fill="none" stroke="#523f72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m21 15 5 5-5 5m9-1h6"/>
+  </g>
+  <text x="47" y="25.5" fill="#49365e" font-family="system-ui,'PingFang SC','Microsoft YaHei',sans-serif" font-size="16" font-weight="600">连接 Codex</text>
+</svg>

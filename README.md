@@ -1,37 +1,83 @@
-# 人工智障修理厂
+<h1 align="center">人工智障修理厂</h1>
 
-[按机型下载](#下载桌宠) · [安装 Codex Skill](docs/INSTALL-CODEX.md)
+<p align="center">
+  <a href="#下载桌宠"><img src="docs/images/download-pet.svg" alt="下载桌宠" width="144" height="40"></a>
+  &nbsp;
+  <a href="#连接-codex"><img src="docs/images/connect-codex.svg" alt="连接 Codex" width="154" height="40"></a>
+</p>
 
-| 橡皮锤 | 皮鞭 | 滚 |
-| :---: | :---: | :---: |
-| ![橡皮锤](docs/images/hammer.png) | ![皮鞭](docs/images/whip.png) | ![滚](docs/images/stamp.png) |
+<table align="center">
+  <tr>
+    <td align="center" width="33%"><a href="docs/images/hammer.png"><img src="docs/images/hammer.png" width="276" alt="橡皮锤"></a><br><strong>橡皮锤</strong></td>
+    <td align="center" width="33%"><a href="docs/images/whip.png"><img src="docs/images/whip.png" width="276" alt="皮鞭"></a><br><strong>皮鞭</strong></td>
+    <td align="center" width="33%"><a href="docs/images/stamp.png"><img src="docs/images/stamp.png" width="276" alt="滚"></a><br><strong>滚</strong></td>
+  </tr>
+</table>
 
 ## 下载桌宠
 
-1. **只想玩**，从下表下载适合自己电脑的包，完整解压后打开里面的桌宠程序。
-2. **想连接 Codex**，把这句话发给 Codex：**请按 https://github.com/pandaxiong0729/ai-repair-shop/blob/main/docs/INSTALL-CODEX.md 帮我安装并启动人工智障修理厂。**
-3. 下次说“启动人工智障修理厂”就能叫出来，说“关闭人工智障修理厂”就会收起。
+选好版本，完整解压后打开桌宠。
 
-| 电脑 | 玩具下载 | 解压后打开 |
-| --- | --- | --- |
-| Windows，Intel 或 AMD 64 位处理器 | [Windows x64](https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.7.0/AI-Repair-Shop-Windows-x64.zip) | `QiaoQiaoAI.Preview.exe` |
-| Windows 11，ARM64 处理器（如 Snapdragon） | [Windows ARM64](https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-Windows-arm64.zip) | `AI-Repair-Shop.exe` |
-| Mac，Apple 芯片（M 系列） | [Mac Apple 芯片版](https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-macOS-arm64.zip) | `AI-Repair-Shop.app` |
-| Mac，Intel 处理器 | [Mac Intel 版](https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-macOS-x64.zip) | `AI-Repair-Shop.app` |
-| Linux，Intel 或 AMD 64 位处理器 | [Linux x64](https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-Linux-x64.tar.gz) | `AI-Repair-Shop/AI-Repair-Shop` |
-| Linux，ARM64 处理器 | [Linux ARM64](https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-Linux-arm64.tar.gz) | `AI-Repair-Shop/AI-Repair-Shop` |
+<table>
+  <thead>
+    <tr><th align="left">系统</th><th align="left">下载</th><th align="left">解压后打开</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th align="left" rowspan="2">Windows</th>
+      <td><a href="https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-Windows-x64.zip">Intel / AMD（x64）</a></td>
+      <td><code>QiaoQiaoAI.Preview.exe</code></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-Windows-arm64.zip">Windows 11 ARM64（如骁龙）</a></td>
+      <td><code>AI-Repair-Shop.exe</code></td>
+    </tr>
+    <tr>
+      <th align="left">macOS</th>
+      <td><a href="https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-macOS-arm64.zip">Apple 芯片（M 系列）</a> · <a href="https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-macOS-x64.zip">Intel</a></td>
+      <td><code>AI-Repair-Shop.app</code></td>
+    </tr>
+    <tr>
+      <th align="left">Linux</th>
+      <td><a href="https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-Linux-x64.tar.gz">Intel / AMD（x64）</a> · <a href="https://github.com/pandaxiong0729/ai-repair-shop/releases/download/v0.8.0/AI-Repair-Shop-Linux-arm64.tar.gz">ARM64</a></td>
+      <td><code>AI-Repair-Shop/AI-Repair-Shop</code></td>
+    </tr>
+  </tbody>
+</table>
 
-公开版首次使用时从 OpenAI 获取约 0.9 MB 的官方 Codex 图集并缓存，此后玩具可以离线使用。桌宠有九种玩法，支持长按连击和拖动甩鞭。豆包和 DeepSeek 动画目前用于本地评审。
+首次打开会从 OpenAI 获取约 0.9 MB 的 Codex 角色图集，之后可以离线玩。[版本与校验文件](https://github.com/pandaxiong0729/ai-repair-shop/releases/latest)
+
+## 连接 Codex
+
+把这两行一起复制给电脑上的 Codex。
+
+```text
+请按这份说明帮我安装并启动人工智障修理厂。
+https://github.com/pandaxiong0729/ai-repair-shop/blob/main/docs/INSTALL-CODEX.md
+```
+
+下次说「启动人工智障修理厂」就能叫出来，说「关闭人工智障修理厂」就会收起。
 
 <details>
-<summary>Windows x64 工具箱</summary>
-
-<img src="docs/images/windows-toolbox.png" width="384" alt="桌宠工具箱">
-
+  <summary>敲打后，反馈会发到哪个聊天？</summary>
+  <p>Skill 会选中第一下命中时你最近发过消息的 Codex 聊天。停手约两秒后，桌宠会自动提交一条纠错提示。按「重置」才开启下一轮。</p>
 </details>
 
-Skill 版会把“这次回答做得不好，请纠正”发到你敲第一下时最近发过真人消息的 Codex 聊天。松手约两秒后排入队列，每次重置之间最多一条。使用反馈功能需要本机已安装并登录支持聊天队列接口的 Codex。
+<details>
+  <summary>Windows x64 工具箱</summary>
+  <p><img src="docs/images/windows-toolbox.png" width="384" alt="桌宠工具箱"></p>
+</details>
 
-macOS 包目前尚未经过 Apple 公证。Linux 构建基线分别为 Ubuntu 22.04 x64、Ubuntu 24.04 ARM64，桌面集成在 X11 下验证。详见[原生版安装与兼容说明](docs/INSTALL-NATIVE.md)。
+<details>
+  <summary>平台兼容与素材</summary>
+  <p>Mac 安装包尚未经过 Apple 公证。Linux 版在 Ubuntu 22.04 x64 和 Ubuntu 24.04 ARM64 的 X11 环境中验证。<a href="docs/INSTALL-NATIVE.md">原生版安装说明</a></p>
+  <p>公开版使用 Codex 角色，豆包和 DeepSeek 动画目前用于本地评审。<a href="docs/ASSETS.md">素材来源</a></p>
+</details>
 
-[所有版本与校验文件](https://github.com/pandaxiong0729/ai-repair-shop/releases) · [Windows x64 与 VPet 源码构建](README.zh-CN.md#从源码构建) · [许可证](LICENSE) · [素材来源](docs/ASSETS.md)
+<hr>
+
+<p align="center">
+  <a href="README.zh-CN.md#从源码构建">从源码构建</a> &nbsp;·&nbsp;
+  <a href="CONTRIBUTING.md">参与贡献</a> &nbsp;·&nbsp;
+  <a href="LICENSE">Apache-2.0</a>
+</p>

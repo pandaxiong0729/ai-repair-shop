@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="40" viewBox="0 0 144 40">
+  <title>下载桌宠</title>
+  <rect x=".5" y=".5" width="143" height="39" rx="9" fill="#654b91" stroke="#9279b4"/>
+  <g fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M28 11v12m-5-5 5 5 5-5M19 24v4h18v-4"/>
+  </g>
+  <text x="49" y="25.5" fill="#fff" font-family="system-ui,'PingFang SC','Microsoft YaHei',sans-serif" font-size="16" font-weight="600">下载桌宠</text>
+</svg>
