@@ -163,7 +163,9 @@ public sealed class VentSurface : UserControl, IDisposable
         }
     }
 
-    public VentSurface(string assetsDirectory)
+    public VentSurface(string assetsDirectory) : this(assetsDirectory, null) { }
+
+    public VentSurface(string assetsDirectory, BitmapSource? codexAtlas)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(assetsDirectory);
         Width = 500;
@@ -181,7 +183,8 @@ public sealed class VentSurface : UserControl, IDisposable
         _idleMessage = _messages[0];
         var effects = ReadOptional<EffectsConfig>(Path.Combine(assetsDirectory, "effects.json")) ?? new();
         _apologyDelay = Math.Clamp(effects.ApologyDelaySeconds, 0.2, 5);
-        _scene = new MascotScene(assetsDirectory, effects);
+        _scene = new MascotScene(assetsDirectory, effects, codexAtlas);
+        if (codexAtlas is not null && !HasCodexSkin) throw new InvalidDataException(_scene.AssetStatus);
 
         _classicBackground = new LinearGradientBrush(Color.FromRgb(255, 252, 245), Color.FromRgb(248, 244, 255), 90);
         var outer = _outerBorder = new Border
@@ -204,8 +207,6 @@ public sealed class VentSurface : UserControl, IDisposable
         Place(layout, subtitle, 28, 63, 198, 20);
         _titleChrome.AddRange([heading, offline, subtitle]);
         var selectorDock = new Border { Background = Brush("#F2FFFDF9"), CornerRadius = new CornerRadius(16), Visibility = Visibility.Collapsed };
-        Place(layout, selectorDock, 225, 55, 237, 38);
-        _floatingBackdrops.Add(selectorDock);
         _codex = MakeButton("Codex", 11, () => SelectCharacter(CharacterKind.Codex));
         _doubao = MakeButton("豆包脸", 11, () => SelectCharacter(CharacterKind.Doubao));
         _deepSeek = MakeButton("DeepSeek", 10, () => SelectCharacter(CharacterKind.DeepSeek));
@@ -214,10 +215,15 @@ public sealed class VentSurface : UserControl, IDisposable
         _deepSeek.IsEnabled = HasDeepSeekSkin;
         _doubao.ToolTip = HasDoubaoSkin ? "切换到豆包：会眨眼，也会在受击时做表情" : "缺少豆包动画图集，请按素材说明准备完整动画资源";
         _deepSeek.ToolTip = HasDeepSeekSkin ? "切换到 DeepSeek" : "缺少 DeepSeek 素材";
-        Place(layout, _codex, 231, 60, 70, 28);
-        Place(layout, _doubao, 308, 60, 68, 28);
-        Place(layout, _deepSeek, 383, 60, 74, 28);
-        _controlChrome.AddRange([_codex, _doubao, _deepSeek]);
+        if (codexAtlas is null || HasDoubaoSkin || HasDeepSeekSkin)
+        {
+            Place(layout, selectorDock, 225, 55, 237, 38);
+            _floatingBackdrops.Add(selectorDock);
+            Place(layout, _codex, 231, 60, 70, 28);
+            Place(layout, _doubao, 308, 60, 68, 28);
+            Place(layout, _deepSeek, 383, 60, 74, 28);
+            _controlChrome.AddRange([_codex, _doubao, _deepSeek]);
+        }
 
         var bubble = new Border
         {

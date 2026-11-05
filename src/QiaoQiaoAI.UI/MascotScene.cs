@@ -87,14 +87,14 @@ internal sealed partial class MascotScene : FrameworkElement
     }
     private static Rect MascotRect => new(134, 1, 192, 208);
 
-    public MascotScene(string assetsDirectory, EffectsConfig config)
+    public MascotScene(string assetsDirectory, EffectsConfig config, BitmapSource? codexAtlas)
     {
         _maxEffects = Math.Clamp(config.MaxEffects, 1, 24);
         _hammerLife = FiniteClamp(config.HammerDurationSeconds, .85, .3, 2);
         _poopLife = FiniteClamp(config.PoopDurationSeconds, 2.6, .8, 6);
         ClipToBounds = false;
         RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.HighQuality);
-        LoadSkin(assetsDirectory);
+        LoadSkin(assetsDirectory, codexAtlas);
         LoadDoubao(assetsDirectory);
         LoadDeepSeek(assetsDirectory);
         ResetWhipModel();
@@ -103,7 +103,7 @@ internal sealed partial class MascotScene : FrameworkElement
     private static double FiniteClamp(double value, double fallback, double min, double max) =>
         double.IsFinite(value) ? Math.Clamp(value, min, max) : fallback;
 
-    private void LoadSkin(string directory)
+    private void LoadSkin(string directory, BitmapSource? codexAtlas)
     {
         try
         {
@@ -111,13 +111,7 @@ internal sealed partial class MascotScene : FrameworkElement
             if (config.FrameWidth is < 1 or > 2048 || config.FrameHeight is < 1 or > 2048 ||
                 config.Columns is < 1 or > 64 || config.Rows is < 1 or > 64)
                 throw new InvalidDataException("图集帧设置超出范围。");
-            var root = Path.GetFullPath(directory) + Path.DirectorySeparatorChar;
-            var imagePath = Path.GetFullPath(Path.Combine(directory, config.Image));
-            if (!imagePath.StartsWith(root, StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("图集须位于素材文件夹内。");
-            var bitmap = new BitmapImage();
-            bitmap.BeginInit(); bitmap.CacheOption = BitmapCacheOption.OnLoad;
-            bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
-            bitmap.EndInit(); bitmap.Freeze();
+            BitmapSource bitmap = codexAtlas ?? LoadLocalAtlas(directory, config.Image);
             if (bitmap.PixelWidth > 16384 || bitmap.PixelHeight > 16384 ||
                 bitmap.PixelWidth < config.FrameWidth * config.Columns || bitmap.PixelHeight < config.FrameHeight * config.Rows)
                 throw new InvalidDataException("图集尺寸与 skin.json 不匹配。");
@@ -132,6 +126,18 @@ internal sealed partial class MascotScene : FrameworkElement
             _idleFrames.Clear(); _reactionFrames.Clear();
             _codexStatus = "未能加载角色素材：" + ex.Message;
         }
+    }
+
+    private static BitmapImage LoadLocalAtlas(string directory, string filename)
+    {
+        var root = Path.GetFullPath(directory) + Path.DirectorySeparatorChar;
+        var imagePath = Path.GetFullPath(Path.Combine(directory, filename));
+        if (!imagePath.StartsWith(root, StringComparison.OrdinalIgnoreCase)) throw new InvalidDataException("图集须位于素材文件夹内。");
+        var bitmap = new BitmapImage();
+        bitmap.BeginInit(); bitmap.CacheOption = BitmapCacheOption.OnLoad;
+        bitmap.UriSource = new Uri(imagePath, UriKind.Absolute);
+        bitmap.EndInit(); bitmap.Freeze();
+        return bitmap;
     }
 
     private void LoadDoubao(string directory)

@@ -1,0 +1,13 @@
+人工智障修理厂 · Windows 桌宠
+
+完整解压 AI-Repair-Shop 文件夹，双击里面的 QiaoQiaoAI.Preview.exe。
+适用于 64 位 Windows，压缩包已带上所需的 .NET 运行环境。
+
+首次打开时，程序优先复用本机可验证的 Codex 官方角色图集。若本机没有，
+程序会从 OpenAI 官方素材服务 persistent.oaistatic.com 下载图集，核对
+SHA-256 后缓存到 %LOCALAPPDATA%\QiaoQiaoAI\assets。首次下载需要联网；
+缓存成功后即可离线玩。若下载失败，请检查连接后重新打开程序。
+
+拖动底部手柄可以移动桌宠。右键展开玩法，选择工具后点击或按住角色。
+单独打开此程序只在本机玩；按 Esc 可收起菜单，再按可退出。
+需要连接 Codex 聊天时，请使用单独的 Codex Skill 安装包。

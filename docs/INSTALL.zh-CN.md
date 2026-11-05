@@ -1,6 +1,8 @@
 # 安装、使用与卸载
 
-## 先选版本
+Windows x64 用户可以直接[下载公开玩具版](https://github.com/pandaxiong0729/ai-repair-shop/releases/latest/download/AI-Repair-Shop-Windows-x64.zip)，解压后双击 `QiaoQiaoAI.Preview.exe`。要在 Codex 聊天中安装并启动桌宠，请使用[一句话安装说明](INSTALL-CODEX.md)。公开版首次启动会从 OpenAI 获取 Codex 图集并存到本机。下面的三个角色及 `*-local.zip` 说明适用于本地评审包。
+
+## 开发者本地评审包
 
 | 包 | 使用方式 |
 | --- | --- |

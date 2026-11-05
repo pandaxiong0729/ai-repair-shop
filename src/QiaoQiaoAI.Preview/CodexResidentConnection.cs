@@ -61,7 +61,7 @@ internal sealed class CodexResidentConnection : IResidentCodexConnection
         {
             await connection.CallAsync("initialize", new
             {
-                clientInfo = new { name = "ai_repair_shop", version = "0.6.1" },
+                clientInfo = new { name = "ai_repair_shop", version = typeof(CodexResidentConnection).Assembly.GetName().Version!.ToString(3) },
                 capabilities = new { experimentalApi = true }
             }, token);
             await connection._process.StandardInput.WriteLineAsync("{\"method\":\"initialized\"}");

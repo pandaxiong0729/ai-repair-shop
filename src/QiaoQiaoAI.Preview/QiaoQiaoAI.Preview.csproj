@@ -6,6 +6,7 @@
     <StartupObject>QiaoQiaoAI.Preview.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="3.116.1" />
     <ProjectReference Include="../QiaoQiaoAI.UI/QiaoQiaoAI.UI.csproj" />
   </ItemGroup>
 </Project>

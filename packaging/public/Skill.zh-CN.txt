@@ -1,0 +1,16 @@
+人工智障修理厂 · Codex 技能
+
+在 64 位 Windows 上，将压缩包内整个 qiaoqiao-feedback 文件夹解压到
+%USERPROFILE%\.codex\skills 下。确认能够找到
+%USERPROFILE%\.codex\skills\qiaoqiao-feedback\SKILL.md。
+
+重启 Codex 后，在聊天里说“启动人工智障修理厂”。首次唤出会安装随包的
+桌面程序，并准备 Codex 官方角色图集。程序优先复用可验证的本地图集；
+若本机没有，会从 OpenAI 官方素材服务 persistent.oaistatic.com 下载，
+核对 SHA-256 后缓存到 %LOCALAPPDATA%\QiaoQiaoAI\assets。首次下载需要
+联网。缓存成功后，桌宠动画可离线显示。连接聊天需要可用的本地 Codex。
+
+第一次击中角色时锁定最近发过真人消息的聊天。停手约两秒后，技能会向
+该聊天排入一条纠错反馈。每轮最多提交一次，按“重置”开始下一轮。
+说“关闭人工智障修理厂”即可收起，以后按需唤出。登录 Windows 或打开
+Codex 时不会自动启动。更多安装参数和排查方法见 references/resident.md。

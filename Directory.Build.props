@@ -4,7 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <Deterministic>true</Deterministic>
-    <Version>0.6.1</Version>
+    <Version>0.7.0</Version>
     <Product>人工智障修理厂</Product>
     <Authors>QiaoQiaoAI contributors</Authors>
     <Copyright>Copyright 2026 QiaoQiaoAI contributors</Copyright>

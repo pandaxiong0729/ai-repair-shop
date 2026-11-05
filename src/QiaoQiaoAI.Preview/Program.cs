@@ -52,9 +52,12 @@ public static class Program
                 return RenderSequence(assets, frames);
             if (Value(args, "--render-whip-sequence") is { } whipFrames)
                 return RenderWhipSequence(assets, whipFrames);
+            BitmapSource? codexAtlas = File.Exists(Path.Combine(assets, "public-codex.json"))
+                ? PublicCodexAtlas.Load()
+                : null;
             if ((Value(args, "--snapshot-floating") ?? Value(args, "--snapshot")) is { } snapshot)
             {
-                using var still = new VentSurface(assets) { FloatingMode = args.Contains("--snapshot-floating") || args.Contains("--floating") };
+                using var still = new VentSurface(assets, codexAtlas) { FloatingMode = args.Contains("--snapshot-floating") || args.Contains("--floating") };
                 if (Value(args, "--character") is { } requestedCharacter)
                 {
                     if (!Enum.TryParse<CharacterKind>(requestedCharacter, true, out var character) || !Enum.IsDefined(character))
@@ -67,7 +70,7 @@ public static class Program
             }
             if (args.Contains("--resident"))
             {
-                var residentSurface = new VentSurface(assets);
+                var residentSurface = new VentSurface(assets, codexAtlas);
                 var controller = new ResidentFeedbackController(residentSurface, residentDirectory,
                     CodexResidentConnection.FindExecutable(Value(args, "--codex-path")));
                 var residentWindow = new ResidentPetWindow(residentSurface, controller);
@@ -76,7 +79,7 @@ public static class Program
                 return 0;
             }
             string? feedbackDirectory = FeedbackDirectory(args);
-            var surface = new VentSurface(assets);
+            var surface = new VentSurface(assets, codexAtlas);
             FeedbackRound? feedback = null;
             DesktopPetWindow window;
             try
@@ -93,8 +96,10 @@ public static class Program
             var report = Value(args, "--self-test");
             if (report is not null)
                 File.WriteAllText(report, JsonSerializer.Serialize(new { passed = false, error = ex.ToString() }, JsonOptions));
+            else if (args.Any(a => a is "--snapshot" or "--snapshot-floating" or "--render-sequence" or "--render-whip-sequence" or "--connection-check"))
+                Console.Error.WriteLine(ex.Message);
             else
-                MessageBox.Show("启动失败：" + ex.Message + "\n请确认 assets 中的官方角色图片与 skin.json 完整。", "人工智障修理厂");
+                MessageBox.Show("启动失败：" + ex.Message, "人工智障修理厂");
             return 1;
         }
     }
